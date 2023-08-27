@@ -95,7 +95,7 @@ namespace WebApi2ElectricBoogaLoo.Controllers
                                 CategoryId = od.Product.Category.CategoryId,
                                 CategoryName = od.Product.Category.CategoryName,
                                 Description = od.Product.Category.Description,
-                                Picture = od.Product.Category.Picture,
+                                Picture = EncodePictureToString.FromOLE(od.Product.Category.Picture),
                             }
                         }
                     }).ToList()

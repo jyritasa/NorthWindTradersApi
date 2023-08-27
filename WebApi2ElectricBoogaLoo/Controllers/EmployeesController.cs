@@ -51,13 +51,10 @@ namespace WebApi2ElectricBoogaLoo.Controllers
             return Ok(employeeDto);
         }
 
+
+
         static private EmployeeDto CreateEmployeeDto(Employee e)
         {
-            byte[] originalPhoto = e.Photo;
-            //Trimming OLE bytes array off from the Photo
-            byte[] trimmedPhoto = new byte[originalPhoto.Length - 78];
-            Array.Copy(originalPhoto, 78, trimmedPhoto, 0, trimmedPhoto.Length);
-            string base64EncodedImage = Convert.ToBase64String(trimmedPhoto);
 
             return new EmployeeDto
             {
@@ -66,7 +63,7 @@ namespace WebApi2ElectricBoogaLoo.Controllers
                 LastName = e.LastName,
                 Title = e.Title,
                 ReportsTo = e.ReportsTo,
-                Photo = base64EncodedImage,
+                Photo = EncodePictureToString.FromOLE(e.Photo),
                 ReportsToEmployee = e.ReportsToNavigation != null ? new EmployeeDto
                 {
                     EmployeeId = e.ReportsToNavigation.EmployeeId,
@@ -107,7 +104,7 @@ namespace WebApi2ElectricBoogaLoo.Controllers
                                 CategoryId = od.Product.Category.CategoryId,
                                 CategoryName = od.Product.Category.CategoryName,
                                 Description = od.Product.Category.Description,
-                                Picture = od.Product.Category.Picture
+                                Picture = EncodePictureToString.FromOLE(od.Product.Category.Picture)
                             }
                         }
                     }).ToList()
