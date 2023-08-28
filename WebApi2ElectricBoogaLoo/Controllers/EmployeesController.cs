@@ -51,6 +51,20 @@ namespace WebApi2ElectricBoogaLoo.Controllers
             return Ok(employeeDto);
         }
 
+        [HttpGet("employeeinfo")]
+        public IActionResult GetEmployeeInfo()
+        {
+            var employeeInfo = context.Employees.Select(e => new
+            {
+                e.EmployeeId,
+                e.FirstName,
+                e.LastName,
+
+            }).ToList();
+
+            return Ok(employeeInfo);
+        }
+
 
 
         static private EmployeeDto CreateEmployeeDto(Employee e)

@@ -47,6 +47,18 @@ namespace WebApi2ElectricBoogaLoo.Controllers
             return Ok(customer);
         }
 
+        [HttpGet("customerinfo")]
+        public IActionResult GetCustomerInfo()
+        {
+            var customerInfo = context.Customers.Select(c => new
+            {
+                c.CustomerId,
+                c.CompanyName
+            }).ToList();
+
+            return Ok(customerInfo);
+        }
+
         static private CustomerDto CreateCustomerDto(Customer c)
         {
             return new CustomerDto

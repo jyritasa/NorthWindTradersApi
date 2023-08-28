@@ -41,6 +41,19 @@
                 return Ok(CreateProductDto(product));
             }
 
+            [HttpGet("productinfo")]
+            public IActionResult GetProductInfo()
+            {
+                var productInfo = context.Products.Select(p => new
+                {
+                    p.ProductId,
+                    p.ProductName,
+                    p.UnitPrice
+                }).ToList();
+
+                return Ok(productInfo);
+            }
+
             static private ProductDto CreateProductDto(Product p)
             {
                 return new ProductDto
