@@ -100,6 +100,88 @@ namespace WebApi2ElectricBoogaLoo.Controllers
 
             return CreatedAtRoute("GetOrderById", new { id = newOrder.OrderId }, CreateOrderDto(newOrder));
         }
+
+        [HttpPut("{id}", Name = "UpdateOrder")]
+        public IActionResult UpdateOrder(int id, OrderDto orderDto)
+        {
+            var existingOrder = context.Orders.FirstOrDefault(o => o.OrderId == id);
+
+            if (existingOrder == null)
+            {
+                return NotFound();
+            }
+
+            // Update properties based on the DTO
+            existingOrder.OrderDate = orderDto.OrderDate;
+            existingOrder.ShippedDate = orderDto.ShippedDate;
+            existingOrder.Freight = orderDto.Freight;
+            existingOrder.ShipName = orderDto.ShipName;
+            existingOrder.ShipAddress = orderDto.ShipAddress;
+            existingOrder.ShipCity = orderDto.ShipCity;
+            existingOrder.ShipRegion = orderDto.ShipRegion;
+            existingOrder.ShipPostalCode = orderDto.ShipPostalCode;
+            existingOrder.ShipCountry = orderDto.ShipCountry;
+            existingOrder.CustomerId = orderDto.CustomerId;
+            existingOrder.EmployeeId = orderDto.EmployeeId;
+
+            // Update OrderDetails
+            existingOrder.OrderDetails.Clear(); // Remove existing details
+            if (orderDto.OrderDetails != null)
+            {
+                foreach (var orderDetailDto in orderDto.OrderDetails)
+                {
+                    var newOrderDetail = new OrderDetail
+                    {
+                        ProductId = orderDetailDto.ProductId ?? 0,
+                        UnitPrice = orderDetailDto.UnitPrice ?? 0,
+                        Quantity = orderDetailDto.Quantity ?? 0,
+                        Discount = orderDetailDto.Discount ?? 0
+                    };
+                    existingOrder.OrderDetails.Add(newOrderDetail);
+                }
+            }
+
+            // Update ShipViaNavigation
+            if (orderDto.ShipViaNavigation != null)
+            {
+                existingOrder.ShipViaNavigation = context.Shippers.Find(orderDto.ShipViaNavigation.ShipperId);
+            }
+            else
+            {
+                existingOrder.ShipViaNavigation = null; // Clear if not provided
+            }
+
+            // Save changes
+            context.SaveChanges();
+
+            return Ok(CreateOrderDto(existingOrder)); // Return updated OrderDto
+        }
+
+
+        [HttpDelete("{id}", Name = "DeleteOrder")]
+        public IActionResult DeleteOrder(int id)
+        {
+            var existingOrder = context.Orders.Include(o => o.OrderDetails)
+                                              .FirstOrDefault(o => o.OrderId == id);
+
+            if (existingOrder == null)
+            {
+                return NotFound();
+            }
+
+            // Remove OrderDetails
+            context.OrderDetails.RemoveRange(existingOrder.OrderDetails);
+
+            // Remove ShipViaNavigation
+            existingOrder.ShipViaNavigation = null;
+
+            // Remove the order
+            context.Orders.Remove(existingOrder);
+            context.SaveChanges();
+
+            return NoContent(); // Return a success response
+        }
+
         static private OrderDto CreateOrderDto(Order o)
         {
             return new OrderDto
