@@ -73,12 +73,12 @@ namespace WebApi2ElectricBoogaLoo.Controllers
                     ShipRegion = o.ShipRegion,
                     ShipPostalCode = o.ShipPostalCode,
                     ShipCountry = o.ShipCountry,
-                    ShipViaNavigation = new ShipperDto
+                    ShipViaNavigation = o.ShipViaNavigation != null ? new ShipperDto
                     {
                         ShipperId = o.ShipViaNavigation.ShipperId,
                         CompanyName = o.ShipViaNavigation.CompanyName,
                         Phone = o.ShipViaNavigation.Phone
-                    },
+                    } : null,
                     OrderDetails = o.OrderDetails.Select(od => new OrderDetailDto
                     {
                         ProductId = od.ProductId,
@@ -90,13 +90,15 @@ namespace WebApi2ElectricBoogaLoo.Controllers
                             ProductId = od.Product.ProductId,
                             ProductName = od.Product.ProductName,
                             UnitPrice = od.Product.UnitPrice,
-                            Category = new CategoryDto
+                            Category = od.Product.Category != null ? new CategoryDto
                             {
                                 CategoryId = od.Product.Category.CategoryId,
                                 CategoryName = od.Product.Category.CategoryName,
                                 Description = od.Product.Category.Description,
-                                Picture = EncodePictureToString.FromOLE(od.Product.Category.Picture),
-                            }
+                                Picture = od.Product.Category.Picture != null
+                                    ? EncodePictureToString.FromOLE(od.Product.Category.Picture)
+                                    : null,
+                            } : null
                         }
                     }).ToList()
                 }).ToList()
