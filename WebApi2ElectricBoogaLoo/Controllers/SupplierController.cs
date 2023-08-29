@@ -64,13 +64,15 @@
                         UnitsOnOrder = p.UnitsOnOrder,
                         ReorderLevel = p.ReorderLevel,
                         Discontinued = p.Discontinued,
-                        Category = new CategoryDto
+                        Category = p.Category != null ? new CategoryDto
                         {
                             CategoryId = p.Category.CategoryId,
                             CategoryName = p.Category.CategoryName,
                             Description = p.Category.Description,
-                            Picture = EncodePictureToString.FromOLE(p.Category.Picture)
-                        }
+                            Picture = p.Category.Picture != null
+                                ? EncodePictureToString.FromOLE(p.Category.Picture)
+                                : null
+                        } : null
                     }).ToList()
                 };
             }
