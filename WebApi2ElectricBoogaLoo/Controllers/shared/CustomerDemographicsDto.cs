@@ -1,4 +1,4 @@
-﻿namespace WebApi2ElectricBoogaLoo.Controllers.Shared
+﻿namespace NorthWindTradersApi.Controllers.Shared
 {
     public class CustomerDemographicDto
     {

@@ -1,11 +1,11 @@
-﻿namespace WebApi2ElectricBoogaLoo.Controllers
+﻿namespace NorthWindTradersApi.Controllers
 {
-    using global::WebApi2ElectricBoogaLoo.Controllers.shared;
-    using global::WebApi2ElectricBoogaLoo.Models;
+    using global::NorthWindTradersApi.Controllers.shared;
+    using global::NorthWindTradersApi.Models;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
 
-    namespace WebApi2ElectricBoogaLoo.Controllers
+    namespace NorthWindTradersApi.Controllers
     {
         [ApiController]
         [Route("[controller]")]

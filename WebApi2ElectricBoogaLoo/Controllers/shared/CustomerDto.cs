@@ -1,9 +1,9 @@
 ﻿
-using WebApi2ElectricBoogaLoo.Controllers.shared;
-using WebApi2ElectricBoogaLoo.Controllers.Shared;
-using WebApi2ElectricBoogaLoo.Models;
+using NorthWindTradersApi.Controllers.shared;
+using NorthWindTradersApi.Controllers.Shared;
+using NorthWindTradersApi.Models;
 
-namespace WebApi2ElectricBoogaLoo.Controllers
+namespace NorthWindTradersApi.Controllers
 {
     public class CustomerDto
     {

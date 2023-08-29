@@ -1,5 +1,5 @@
 ﻿
-namespace WebApi2ElectricBoogaLoo.Models;
+namespace NorthWindTradersApi.Models;
 
 public partial class Supplier
 {

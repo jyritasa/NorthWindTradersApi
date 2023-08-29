@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebApi2ElectricBoogaLoo.Models;
+namespace NorthWindTradersApi.Models;
 
 public partial class NorthwindContext : DbContext
 {

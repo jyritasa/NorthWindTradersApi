@@ -1,5 +1,5 @@
 ﻿
-namespace WebApi2ElectricBoogaLoo.Controllers
+namespace NorthWindTradersApi.Controllers
 {
     public class EmployeeDto
     {

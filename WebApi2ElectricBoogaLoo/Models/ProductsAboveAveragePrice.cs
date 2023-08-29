@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebApi2ElectricBoogaLoo.Models;
+namespace NorthWindTradersApi.Models;
 
 public partial class ProductsAboveAveragePrice
 {

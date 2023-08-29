@@ -1,7 +1,7 @@
-﻿using WebApi2ElectricBoogaLoo.Controllers.shared;
-using WebApi2ElectricBoogaLoo.Models;
+﻿using NorthWindTradersApi.Controllers.shared;
+using NorthWindTradersApi.Models;
 
-namespace WebApi2ElectricBoogaLoo.Controllers
+namespace NorthWindTradersApi.Controllers
 {
     public class OrderDetailDto
     {

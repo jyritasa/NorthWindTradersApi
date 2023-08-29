@@ -1,4 +1,4 @@
-﻿namespace WebApi2ElectricBoogaLoo.Controllers.shared
+﻿namespace NorthWindTradersApi.Controllers.shared
 {
     public class CategoryDto
     {
