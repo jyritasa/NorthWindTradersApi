@@ -55,8 +55,6 @@ namespace NorthWindTradersApi.Controllers
                 return BadRequest("Order data is missing.");
             }
 
-
-            // Create a new Order entity based on the DTO
             var newOrder = new Order
             {
                 OrderDate = orderDto.OrderDate,
@@ -72,7 +70,6 @@ namespace NorthWindTradersApi.Controllers
                 EmployeeId = orderDto.EmployeeId
             };
 
-            // Create and add new OrderDetails to the newOrder
             if (orderDto.OrderDetails != null)
             {
                 foreach (var orderDetailDto in orderDto.OrderDetails)
@@ -88,13 +85,11 @@ namespace NorthWindTradersApi.Controllers
                 }
             }
 
-            // Set ShipViaNavigation using orderDto.ShipViaNavigation if available
             if (orderDto.ShipViaNavigation != null)
             {
                 newOrder.ShipViaNavigation = context.Shippers.Find(orderDto.ShipViaNavigation.ShipperId);
             }
 
-            // Add newOrder to the context and save changes
             context.Orders.Add(newOrder);
             context.SaveChanges();
 
@@ -111,7 +106,6 @@ namespace NorthWindTradersApi.Controllers
                 return NotFound();
             }
 
-            // Update properties based on the DTO
             existingOrder.OrderDate = orderDto.OrderDate;
             existingOrder.ShippedDate = orderDto.ShippedDate;
             existingOrder.Freight = orderDto.Freight;
@@ -124,8 +118,7 @@ namespace NorthWindTradersApi.Controllers
             existingOrder.CustomerId = orderDto.CustomerId;
             existingOrder.EmployeeId = orderDto.EmployeeId;
 
-            // Update OrderDetails
-            existingOrder.OrderDetails.Clear(); // Remove existing details
+            existingOrder.OrderDetails.Clear();
             if (orderDto.OrderDetails != null)
             {
                 foreach (var orderDetailDto in orderDto.OrderDetails)
@@ -141,20 +134,19 @@ namespace NorthWindTradersApi.Controllers
                 }
             }
 
-            // Update ShipViaNavigation
             if (orderDto.ShipViaNavigation != null)
             {
                 existingOrder.ShipViaNavigation = context.Shippers.Find(orderDto.ShipViaNavigation.ShipperId);
             }
             else
             {
-                existingOrder.ShipViaNavigation = null; // Clear if not provided
+                existingOrder.ShipViaNavigation = null;
             }
 
             // Save changes
             context.SaveChanges();
 
-            return Ok(CreateOrderDto(existingOrder)); // Return updated OrderDto
+            return Ok(CreateOrderDto(existingOrder)); 
         }
 
 
@@ -169,17 +161,15 @@ namespace NorthWindTradersApi.Controllers
                 return NotFound();
             }
 
-            // Remove OrderDetails
             context.OrderDetails.RemoveRange(existingOrder.OrderDetails);
 
-            // Remove ShipViaNavigation
             existingOrder.ShipViaNavigation = null;
 
-            // Remove the order
+
             context.Orders.Remove(existingOrder);
             context.SaveChanges();
 
-            return NoContent(); // Return a success response
+            return NoContent(); 
         }
 
         static private OrderDto CreateOrderDto(Order o)

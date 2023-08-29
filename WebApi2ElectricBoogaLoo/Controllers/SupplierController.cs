@@ -17,7 +17,7 @@
             public IActionResult GetAllSuppliers()
             {
                 var suppliers = context.Suppliers
-                    .Include(s => s.Products) // Include related products
+                    .Include(s => s.Products) 
                     .Select(s => CreateSupplierDto(s))
                     .ToList();
 
@@ -28,7 +28,7 @@
             public IActionResult GetSupplierById(int id)
             {
                 var supplier = context.Suppliers
-                    .Include(s => s.Products) // Include related products
+                    .Include(s => s.Products) 
                     .FirstOrDefault(s => s.SupplierId == id);
 
                 if (supplier == null)
