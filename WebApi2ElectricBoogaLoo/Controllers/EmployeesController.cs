@@ -65,8 +65,6 @@ namespace NorthWindTradersApi.Controllers
             return Ok(employeeInfo);
         }
 
-
-
         static private EmployeeDto CreateEmployeeDto(Employee e)
         {
 
