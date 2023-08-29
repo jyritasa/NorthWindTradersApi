@@ -47,7 +47,7 @@ namespace NorthWindTradersApi.Controllers
             return Ok(customer);
         }
 
-        [HttpGet("customerinfo")]
+        [HttpGet("customerMinimal")]
         public IActionResult GetCustomerInfo()
         {
             var customerInfo = context.Customers.Select(c => new

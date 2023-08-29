@@ -41,8 +41,8 @@
                 return Ok(CreateProductDto(product));
             }
 
-            [HttpGet("productinfo")]
-            public IActionResult GetProductInfo()
+            [HttpGet("productMinimal")]
+            public IActionResult GetProductMinimal()
             {
                 var productInfo = context.Products.Select(p => new
                 {

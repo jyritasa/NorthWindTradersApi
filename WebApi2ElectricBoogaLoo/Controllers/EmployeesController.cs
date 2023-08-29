@@ -51,7 +51,7 @@ namespace NorthWindTradersApi.Controllers
             return Ok(employeeDto);
         }
 
-        [HttpGet("employeeinfo")]
+        [HttpGet("employeeMinimal")]
         public IActionResult GetEmployeeInfo()
         {
             var employeeInfo = context.Employees.Select(e => new
